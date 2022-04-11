@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { Course } from '../model/course';
 import { CoursesService } from './../services/courses.service';
 
@@ -10,7 +11,7 @@ import { CoursesService } from './../services/courses.service';
 })
 export class CoursesComponent implements OnInit {
 
-  courses: Observable <Course[]>;//SEMPRE DAR PREFERENCIA AO ANGULAR OBSERVABLE
+  courses$: Observable <Course[]>;//SEMPRE DAR PREFERENCIA AO ANGULAR OBSERVABLE
   displayedColumns = ['name', 'category'];
 
   //CoursesService: CoursesService;
@@ -18,7 +19,7 @@ export class CoursesComponent implements OnInit {
   constructor(private CoursesService: CoursesService) {
     // this.courses = [];
     //this.CoursesService = new CoursesService();
-    this.courses = this.CoursesService.list();
+    this.courses$ = this.CoursesService.list();
     //this.coursesService.list().subscribe(courses => this.courses = courses);// | async
   }
 
