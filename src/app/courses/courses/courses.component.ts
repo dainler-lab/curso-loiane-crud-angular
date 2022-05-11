@@ -13,32 +13,31 @@ import { CoursesService } from './../services/courses.service';
   styleUrls: ['./courses.component.scss'],
 })
 export class CoursesComponent implements OnInit {
-
-  courses$: Observable <Course[]>;//SEMPRE DAR PREFERENCIA AO ANGULAR OBSERVABLE
+  courses$: Observable<Course[]>; //SEMPRE DAR PREFERENCIA AO ANGULAR OBSERVABLE
   displayedColumns = ['_id', 'name', 'category', 'actions'];
 
   //CoursesService: CoursesService;
 
-  constructor(private CoursesService: CoursesService,
+  constructor(
+    private CoursesService: CoursesService,
     public dialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute
+  ) {
     // this.courses = [];
     //this.CoursesService = new CoursesService();
-    this.courses$ = this.CoursesService
-    .list()
-    .pipe(
-      catchError(error => {
+    this.courses$ = this.CoursesService.list().pipe(
+      catchError((error) => {
         this.onError('Erro ao carregar os cursos =(');
         console.log(error);
         return of([]);
-      }
-    ));
+      })
+    );
     //this.coursesService.list().subscribe(courses => this.courses = courses);// | async
   }
   onError(errorMsg: string) {
     this.dialog.open(ErrorDialogComponent, {
-      data: errorMsg
+      data: errorMsg,
     });
   }
   ngOnInit(): void {}
