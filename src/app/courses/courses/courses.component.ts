@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
 import { ErrorDialogComponent } from 'src/app/shared/component/error-dialog/error-dialog.component';
 
@@ -14,12 +15,14 @@ import { CoursesService } from './../services/courses.service';
 export class CoursesComponent implements OnInit {
 
   courses$: Observable <Course[]>;//SEMPRE DAR PREFERENCIA AO ANGULAR OBSERVABLE
-  displayedColumns = ['_id', 'name', 'category'];
+  displayedColumns = ['_id', 'name', 'category', 'actions'];
 
   //CoursesService: CoursesService;
 
   constructor(private CoursesService: CoursesService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private router: Router,
+    private route: ActivatedRoute) {
     // this.courses = [];
     //this.CoursesService = new CoursesService();
     this.courses$ = this.CoursesService
@@ -39,4 +42,9 @@ export class CoursesComponent implements OnInit {
     });
   }
   ngOnInit(): void {}
+
+  onAdd() {
+    //console.log('Clicou em adicionar');
+    this.router.navigate(['new'], { relativeTo: this.route });
+  }
 }
